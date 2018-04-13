@@ -1,0 +1,52 @@
+<div class="panel panel-primary" >
+    <div class="panel-heading">
+       {{tableTitle}}
+    </div>
+    <div class="panel-body">
+            <div class="row">
+                <div class="col-md-2 ">Filter By:</div>
+                <div class="col-md-4 col-md-offset-2">
+                    <input  type="text"[(ngModel)]="filterData">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Filter By:{{filterData}}</h3>
+                </div>
+            </div>
+            <div class="table-responsive" *ngIf="products&&products.length">
+                    <table class="table"  >
+                        <thead > 
+                            <tr>
+                                <th>
+                                    <button class="btn btn-primary" (click)="showImages()">{{showMyImages ? 'Hide':'Show'}} Images 
+                                    </button>
+                                </th>
+                                <th>
+                                    Product
+                                </th>
+                                <th>Code</th>
+                                <th>Avialble</th>
+                                <th>Price</th>
+                                <th>5 Statr Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of products" >
+                                <td>
+                                    <img [src]="item.imageUrl" *ngIf="showMyImages">
+                                </td>
+                                <td>
+                                    <a [routerLink]="['/products',item.productId]">{{item.productName| uppercase|convertpspace:'$'}}</a>
+                                    </td>
+                                <td>{{item.productCode| convertpspace:'-'}}</td>
+                                <td>{{item.releaseDate|date: 'MM/dd/yyyy'}}</td>
+                                <td>{{item.price|currency:'USD':true:'1.2-2'}}</td>
+                                <td><star-componet [rating]="item.starRating" (ratingClicked)="onRatingClicked($event)"></star-componet></td>
+                                <!-- {{item.starRating}} -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+    </div>
+</div>
